@@ -3,7 +3,7 @@ numpy==1.19.5
 keras==2.6.0
 scipy==1.6.2
 imageio==2.9.0
-keras-contrib==2.0.8
+#keras-contrib==2.0.8
 matplotlib==3.3.4
 streamlit==1.0.0
 Pillow==8.3.2
