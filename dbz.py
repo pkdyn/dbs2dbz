@@ -30,7 +30,7 @@ st.set_page_config(
 st.title("dbs2dbz")
 
 class DataLoader():
-    def __init__(self, dataset_name, img_res=(128, 128)):
+    def __init__(self, dataset_name, img_res=(512, 512)):
         self.dataset_name = dataset_name
         self.img_res = img_res
 
@@ -97,8 +97,8 @@ class DataLoader():
 class CycleGAN():
     def __init__(self):
         # Input shape
-        self.img_rows = 128
-        self.img_cols = 128
+        self.img_rows = 512
+        self.img_cols = 512
         self.channels = 3
         self.img_shape = (self.img_rows, self.img_cols, self.channels)
         # Configure data loader
@@ -275,7 +275,7 @@ if uploaded_file is not None:
     uimg = uimg.save('im.jpg')
     #st.image(uimg, caption='Uploaded Image', use_column_width=True)
     if st.button('Transform'):
-        img_res=(128, 128)
+        img_res=(512, 512)
         imgs = []
         img = imageio.imread('im.jpg', pilmode = "RGB")
         img = np.array(Image.fromarray(img).resize(img_res))
@@ -285,17 +285,27 @@ if uploaded_file is not None:
         fake_B = cycle_gan.g_AB.predict(imgs_A)
         gen_imgs = np.concatenate([imgs_A, fake_B])
         gen_imgs = 0.5 * gen_imgs + 0.5
+        
+        #st.image(gen_imgs[0], use_column_width=True)
+    
         r, c = 1, 2
         plt.style.use("dark_background")
         titles = ['Original', 'Z-style']
         fig, axs = plt.subplots(r, c)
         cnt = 0
+         
         for i in range(r):
             for j in range(c):
-                axs[j].imshow(gen_imgs[cnt])
+                axs[j].imshow(gen_imgs[cnt], interpolation = 'hamming')
                 axs[j].set_title(titles[j])
                 axs[j].axis('off')
                 cnt += 1
+        #fig.savefig('dbz.jpg', dpi=600)
+        #dimg = Image.open('dbz.jpg')
+        #dimg.save('dbz.jpg', quality = 95)
+        #st.image(dimg)
+        #dim.show()
         st.pyplot(fig)
+        st.image(gen_imgs[1], use_column_width=True)
     
     #os.remove('im.jpg')
