@@ -1,8 +1,10 @@
 from __future__ import print_function, division
 import scipy
 import scipy.misc
-#from tfa.layers.InstanceNormalization import InstanceNormalization
-from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
+from glob import glob
+import numpy as np
+from tensorflow_addons.layers import InstanceNormalization
+#from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
 from keras.layers import Input, Dense, Reshape, Flatten, Dropout, Concatenate
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import UpSampling2D, Conv2D
@@ -10,9 +12,8 @@ from keras.models import Sequential, Model
 from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
 import imageio
-import numpy as np
+
 import streamlit as st
-from glob import glob
 from PIL import Image
 
 fav = Image.open("shenron.ico")
@@ -166,6 +167,7 @@ class CycleGAN(CycleGAN):
         d = LeakyReLU(alpha=0.2)(d)
         if normalization:
             d = InstanceNormalization()(d)
+            #d = tfa.layers.InstanceNormalization()(d)
         return d
 
     @staticmethod
@@ -177,6 +179,7 @@ class CycleGAN(CycleGAN):
         if dropout_rate:
             u = Dropout(dropout_rate)(u)
         u = InstanceNormalization()(u)
+        #u = tfa.layers.InstanceNormalization()(u)
         u = Concatenate()([u, skip_input])
         return u
 
@@ -262,7 +265,7 @@ class CycleGAN(CycleGAN):
 
 cycle_gan = CycleGAN()
 #cycle_gan = pickle.load(open('dbz.pickle', 'rb'))
-cycle_gan.g_AB.load_weights('gAB_s2z_43_8_100.h5')
+cycle_gan.g_AB.load_weights('s2z_03_08_100.h5')
 uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 if uploaded_file is not None:
     uimg = Image.open(uploaded_file)
