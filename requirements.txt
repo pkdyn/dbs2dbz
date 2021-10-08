@@ -17,5 +17,5 @@ pycocotools==2.0.2
 PyGithub==1.55
 pytest==6.2.5
 sacred==0.8.2
-skimage==0.0
+#skimage==0.0
 theano==1.0.5
