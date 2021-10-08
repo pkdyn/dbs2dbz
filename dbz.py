@@ -1,6 +1,5 @@
 from __future__ import print_function, division
 import scipy
-import numpy
 import scipy.misc
 from keras.datasets import mnist
 from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
@@ -10,13 +9,9 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model
 from tensorflow.keras.optimizers import Adam
-import datetime
 import matplotlib.pyplot as plt
-import sys
 import imageio
 import numpy as np
-import os
-import pickle
 import streamlit as st
 from glob import glob
 from PIL import Image
