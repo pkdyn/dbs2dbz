@@ -303,6 +303,5 @@ if uploaded_file is not None:
         #st.image(dimg)
         #dim.show()
         st.pyplot(fig)
-        st.image(gen_imgs[1], use_column_width=True)
     
     #os.remove('im.jpg')
