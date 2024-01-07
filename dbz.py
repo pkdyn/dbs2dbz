@@ -38,17 +38,11 @@ class DataLoader():
         imgs = []
         for img_path in batch_images:
             img = self.imread(img_path)
-            if not is_testing:
-                img = scipy.misc.imresize(img, self.img_res)
-
-                if np.random.random() > 0.5:
-                    img = np.fliplr(img)
-            else:
-                img = scipy.misc.imresize(img, self.img_res)
-            imgs.append(img)
-
+            img = Image.fromarray(img).resize(self.img_res)
+            if not is_testing and np.random.random() > 0.5:
+                img = np.fliplr(img)
+            imgs.append(np.array(img))
         imgs = np.array(imgs)/127.5 - 1.
-
         return imgs
 
     def load_batch(self, batch_size=1, is_testing=False):
@@ -87,7 +81,8 @@ class DataLoader():
             yield imgs_A, imgs_B
 
     def imread(self, path):
-        return scipy.misc.imread(path, mode='RGB').astype(np.float)
+        return imageio.imread(path, pilmode='RGB').astype(np.float)
+        #return scipy.misc.imread(path, mode='RGB').astype(np.float)
 
 class CycleGAN():
     def __init__(self):
