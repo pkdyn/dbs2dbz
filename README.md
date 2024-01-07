@@ -3,7 +3,7 @@ Web-app for converting Dragon Ball Super animation into that of Dragon Ball Z vi
 • Created novel dataset: dbs2dbz (~15k images)  
 • Implemented CycleGAN model (Jun-Yan Zhu et al. 2017) in Tensorflow/Keras  
 • Served the model as a web-app via Flask and Streamlit  
-• Deployed on Heroku ([dbs2dbz.herokuapp.com](https://dbs2dbz.herokuapp.com/))  
+• Deployed on Streamlit Community Cloud ([dbs2dbz.streamlit.app](https://dbs2dbz.streamlit.app/))  
   
 Results after training for 10 epochs at batch size 2:
 
